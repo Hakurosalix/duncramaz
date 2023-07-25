@@ -1,14 +1,14 @@
 /*
  * Enemy.java
- * An enemy class for use with the MazeDQ program
+ * An enemy class for use with the DunCraMaz program
  * 
  * @author Jack Manges
  */
  
  import java.util.Random;
  
- public abstract class Enemy{
-
+ public abstract class Enemy
+ {
     protected String name = "";
     protected String attackName = "";
     protected int health;
@@ -17,13 +17,15 @@
     protected int enemyCol;
     protected Weapon weaponLoot;
 
-    public Enemy(String name, int row, int col){
+    public Enemy(String name, int row, int col)
+    {
         this.name = name;
         this.enemyRow = row;
         this.enemyCol = col;
     }
 
-    public int damageRoll(){
+    public int damageRoll()
+    {
         Random randGen = new Random();
         int n = randGen.nextInt(damage) + 1;
         return n;
@@ -40,7 +42,8 @@
     public void setCol(int i){this.enemyCol = i;}
     public void changeHealth(int i){health += i;}
 
-    public String toString(){
+    public String toString()
+    {
         return name + "\t" + damage;
     }
 }

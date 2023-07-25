@@ -1,14 +1,14 @@
 /* 
  * Balrog.java
- * A Balrog class for use with the MazeDQ program
+ * A Balrog class for use with the DunCraMaz program
  * 
  * @author Jack Manges
  */
 
- public class Balrog extends Enemy{
-
-    public Balrog(String name, int row, int col){
-
+ public class Balrog extends Enemy
+ {
+    public Balrog(String name, int row, int col)
+    {
         super(name, row, col);
         this.attackName = " smites you with its Hammer of Doom!";
         this.health = 50;

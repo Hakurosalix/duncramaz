@@ -1,22 +1,22 @@
 /*
  * Player.java
- * A player class for use with the MazeDQ program
+ * A player class for use with the DunCraMaz program
  * 
  * @author Jack Manges
  */
 
- import java.util.*;
+import java.util.*;
  
- public class Player{
-
+public class Player
+{
     private int health;
     private int mana;
     private int playerRow;
     private int playerCol;
     private Weapon playerWeapon;
 
-    public Player(){
-
+    public Player()
+    {
         playerWeapon = new Dagger("Knifey", false);
         playerRow = 0;
         playerCol = 0;
@@ -24,17 +24,17 @@
         mana = 100;
     }
 
-    public void Heal(){
-
-        if (mana >= 8){
+    public void Heal()
+    {
+        if (mana >= 8) {
             Random randGen = new Random();
             int healAmount = randGen.nextInt(15) + 15;
             health += healAmount;
-            if (health > 100){health = 100;}
+            if (health > 100) {health = 100;}
             mana -= 8;
             System.out.println("\nYou cast a healing spell for 8 mana. Healed for " + healAmount);
         }
-        else{System.out.println("Not enough mana!");}
+        else {System.out.println("Not enough mana!");}
     }
 
     public Weapon getWeapon(){return playerWeapon;}

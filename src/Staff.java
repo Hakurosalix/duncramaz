@@ -1,13 +1,14 @@
 /*
  * Staff.java
- * A Staff class for use with the MazeDQ program
+ * A Staff class for use with the DunCraMaz program
  * 
  * @author Jack Manges
  */
 
-public class Staff extends Weapon{
-
-    public Staff(String name, Boolean enchant){ 
+public class Staff extends Weapon
+{
+    public Staff(String name, Boolean enchant)
+    { 
         super(name, enchant);
         this.damage = 100;
     }
