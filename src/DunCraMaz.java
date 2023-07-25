@@ -1,8 +1,6 @@
 /*
  * DunCraMaz.java
- *  A program for a terminal-based Maze Navigator/Dungeon Crawler game. 
- *  See the included README text file included in project folder for guide to specific lines where
- *      the project requirements were fulfilled. 
+ *  A program for a terminal-based Maze Navigator/Dungeon Crawler game.  
  * @author Jack Manges
  */
 
