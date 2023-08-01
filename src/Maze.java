@@ -132,7 +132,7 @@ public class Maze
         System.out.println();
     }
 
-    public void playerMove(String move)
+    public void executePlayerMove(String move)
     {
         move = move.toLowerCase();
         switch (move){
@@ -145,7 +145,7 @@ public class Maze
                         keyMaze[player.getRow()][player.getCol()] = 7;
                         break;
                     }
-                    else {break;}
+                    break;
                 }
                 catch (ArrayIndexOutOfBoundsException e){break;}
             
@@ -157,7 +157,7 @@ public class Maze
                         keyMaze[player.getRow()][player.getCol()] = 7;
                         break;
                     }
-                    else{break;}
+                    break;
                 }
                 catch (ArrayIndexOutOfBoundsException e){break;}
             
@@ -169,7 +169,7 @@ public class Maze
                         keyMaze[player.getRow()][player.getCol()] = 7;
                         break;
                     }
-                    else{break;}
+                    break;
                 }
                 catch (ArrayIndexOutOfBoundsException e){break;}
             
@@ -181,7 +181,7 @@ public class Maze
                         keyMaze[player.getRow()][player.getCol()] = 7;
                         break;
                     }
-                    else{break;}
+                    break;
                 }
                 catch (ArrayIndexOutOfBoundsException e){break;}
             
