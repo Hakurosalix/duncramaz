@@ -23,10 +23,8 @@
     public Enchantment getEnchantment(String name)
     {
         int index = 0;
-        for (int i = 0; i < enchants.size(); i++)
-        {
-            if (name.equalsIgnoreCase(enchants.get(i).getName()))
-            {
+        for (int i = 0; i < enchants.size(); i++) {
+            if (name.equalsIgnoreCase(enchants.get(i).getName())) {
                 index = i;
             }
         }
