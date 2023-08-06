@@ -17,34 +17,44 @@ import java.io.FileNotFoundException;
 
 public class Game 
 {
+    // Singleton
+    private static Game game = new Game();
+    private Player player;
+    private Scanner scan;
+    private Maze dungeon;
+
+    private Game() 
+    {
+        player = Player.getInstance();
+        dungeon = Maze.getInstance();
+        scan = new Scanner(System.in);
+    }
+
     public void run() throws FileNotFoundException
     {
         printIntro();
-        Maze dungeon = new Maze();
-        Scanner scan = new Scanner(System.in);
-        primaryGameLoop(dungeon, scan);
+        primaryGameLoop();
         scan.close();
     }
 
-    private void primaryGameLoop(Maze dungeon, Scanner scan)
+    private void primaryGameLoop()
     {   
         dungeon.printFogMaze();
         // Game transpires within this do loop
         do {        
-            PlayerMove(dungeon, scan);
+            PlayerMove();
             // random enemy encounter check
             if (dungeon.combatCheck()){          
-                combatLoop(dungeon, scan);
+                combatLoop();
             }
         }
         while (dungeon.endCheck() == false);
 
     }
 
-    private void combatLoop(Maze dungeon, Scanner scan)
+    private void combatLoop()
     {
         Enemy combatEnemy = dungeon.getCombatEnemy();
-        Player player = dungeon.getPlayer();
         String move;
 
         System.out.println("Enemy " + combatEnemy.getName() + " encountered! You must defeat" +
@@ -57,31 +67,28 @@ public class Game
             System.out.println("\nPlayer HP: " + player.getHealth() + "\tMana: " + player.getMana());
             System.out.print("Player Move: ");
             move = scan.next();
-            printLineBreak();
             move = move.toLowerCase();
+            printLineBreak();
             Boolean validInputCheck = true;
 
             switch (move) {  
 
                 case "roll": {
-                    int playerAttack = player.damageRoll();
-                    combatEnemy.changeHealth(-1 * playerAttack);
-                    System.out.println("\nYou attack with " + player.getWeapon().getName() + 
-                                       " for " + playerAttack + " damage.");
-
+                    playerAttackTurn(combatEnemy);
                     if (combatEnemy.getHealth() <= 0) {
-                        postCombatLootQuery(combatEnemy, player, scan);
+                        postCombatLootQuery(combatEnemy);
                         dungeon.printFogMaze();
-                        validInputCheck = false;
-                        combatTester = false;
-                        break; // Is this break necessary?
+                        return;
                     }
+
                     break;
                 }
+
                 case "heal":{
                     player.Heal();
                     break;
                 }
+
                 default:{
                     System.out.println("\nInvalid input. Try again."); 
                     validInputCheck = false;
@@ -91,14 +98,14 @@ public class Game
 
             // Enemy attacks after player turn
             if (validInputCheck) {
-                enemyTurn(combatEnemy, player);
-                gameOverTest(player);
+                enemyTurn(combatEnemy);
+                gameOverTest();
             }
         }
     
     }
 
-    private void postCombatLootQuery(Enemy combatEnemy, Player player, Scanner scan)
+    private void postCombatLootQuery(Enemy combatEnemy)
     {
         combatEnemy.setRow(-1); combatEnemy.setCol(-1);  // removes enemy from play
         System.out.println("\nEnemy " + combatEnemy.getName() + " defeated!");
@@ -135,7 +142,7 @@ public class Game
     
     }
 
-    private void enemyTurn(Enemy combatEnemy, Player player)
+    private void enemyTurn(Enemy combatEnemy)
     {
         int enemyAttackRoll = combatEnemy.damageRoll();
         System.out.println("\nEnemy " + combatEnemy.getName() + combatEnemy.getAttackName());
@@ -144,7 +151,16 @@ public class Game
         
     }
 
-    private void PlayerMove(Maze dungeon, Scanner scan)
+    private void playerAttackTurn(Enemy combatEnemy)
+    {
+        int playerAttack = player.damageRoll();
+        combatEnemy.changeHealth(-1 * playerAttack);
+        System.out.println("\nYou attack with " + player.getWeapon().getName() + 
+                           " for " + playerAttack + " damage.");
+    
+    }
+
+    private void PlayerMove()
     {
         System.out.print("Player Move: ");
         String move = scan.next();
@@ -162,7 +178,8 @@ public class Game
         }
         fileScan.close();
 
-        System.out.println("\n--------------------------------------------------------------------------------------------|"+
+        printLineBreak();
+        System.out.println(
         "\nYou've woken up in a dungeon full of monsters and you must escape! \n\nINSTRUCTIONS:\n\n"+
         "Player starts at the top-left corner of the grid. 7 represents the player. \n1s represent walls," + 
         " while 0s represent open paths. Asterisks (*) represent unexplored spaces. \nType the W, A, S,"+
@@ -181,13 +198,15 @@ public class Game
         "-------------------|");
     }
 
-    private void gameOverTest(Player player)
+    private void gameOverTest()
     {
         if (player.getHealth() <= 0) {
             System.out.println("\nYou died. GAME OVER\n");
             System.exit(0);
         }
     }
+
+    public static Game getInstance() {return game;}
             
 }
 

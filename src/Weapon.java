@@ -18,7 +18,7 @@ public abstract class Weapon
     public Weapon(String name, Boolean enchant)
     {
         this.name = name;
-        enchantList = new EnchantList();
+        enchantList = EnchantList.getInstance();
 
         if (enchant == true) {
             enchanted = true;

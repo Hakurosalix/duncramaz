@@ -9,7 +9,10 @@ import java.util.*;
 
 public class Maze
 {
+    // Singleton
+    private static Maze dungeon = new Maze();
     private Player player;
+
     private int[][] keyMaze = { {7,0,0,1,0,0,1,1,1,0,0,0,0},
                                 {0,1,0,0,0,1,0,0,0,0,1,1,0},
                                 {1,1,1,1,0,1,0,1,0,1,0,1,1},
@@ -31,9 +34,9 @@ public class Maze
     private Enemy[] enemies = new Enemy[8];
     private Enemy combatEnemy;
 
-    public Maze()
-    {
-        player = new Player();
+    private Maze()
+    {   
+        this.player = Player.getInstance();
         GenerateEnemies();
     }
 
@@ -220,7 +223,8 @@ public class Maze
         else{return false;}
     }
 
-    public Player getPlayer(){return player;}
+    public static Maze getInstance() {return dungeon;}
+
     public Enemy getEnemy(int index){return enemies[index];}
     public Enemy getCombatEnemy(){return combatEnemy;}
  }

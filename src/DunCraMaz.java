@@ -4,15 +4,13 @@
  * @author Jack Manges
  */
 
-
-
 import java.io.FileNotFoundException;
 
 public class DunCraMaz
 {
     public static void main(String[] args) throws FileNotFoundException
     {
-        Game game = new Game();
+        Game game = Game.getInstance();
         game.run();
     }
 }

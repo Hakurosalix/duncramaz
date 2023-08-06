@@ -9,11 +9,14 @@
  
  public class EnchantList
  { 
+    // Singleton
+    private static EnchantList enchantList = new EnchantList();
     private Random randGen = new Random();
     private ArrayList<Enchantment> enchants = new ArrayList<Enchantment>();
 
-    public EnchantList()
-    {
+    private EnchantList()
+    {   
+        // Set possible enchants
         enchants.add(new Enchantment("Flaming", 2));
         enchants.add(new Enchantment("Electric", 4));
         enchants.add(new Enchantment("Freezing", 2));
@@ -36,4 +39,6 @@
         int n = randGen.nextInt(enchants.size());
         return enchants.get(n);
     }
+
+    public static EnchantList getInstance() {return enchantList;}
 }
