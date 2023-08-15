@@ -4,18 +4,13 @@
  * @author Jack Manges
  */
 
-//=====================================================================================================
-// TODO:
-//      Rework this entire file so that it isn't the most bulky/nested/unintelligible
-//          code in the world!!
-//
-//=====================================================================================================
+import java.io.FileNotFoundException;
 
 public class DunCraMaz
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws FileNotFoundException
     {
-        Game game = new Game();
+        Game game = Game.getInstance();
         game.run();
     }
 }

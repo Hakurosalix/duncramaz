@@ -9,13 +9,15 @@ import java.util.*;
  
 public class Player
 {
+    // Singleton
+    private static Player player = new Player();
     private int health;
     private int mana;
     private int playerRow;
     private int playerCol;
     private Weapon playerWeapon;
 
-    public Player()
+    private Player()
     {
         playerWeapon = new Dagger("Knifey", false);
         playerRow = 0;
@@ -36,6 +38,8 @@ public class Player
         }
         else {System.out.println("Not enough mana!");}
     }
+
+    public static Player getInstance() {return player;}
 
     public Weapon getWeapon(){return playerWeapon;}
     public void setWeapon(Weapon w){playerWeapon = w;}
