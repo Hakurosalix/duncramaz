@@ -47,9 +47,7 @@ public class Game
             if (dungeon.combatCheck()){          
                 combatLoop();
             }
-        }
-        while (dungeon.endCheck() == false);
-
+        } while (!dungeon.endCheck());
     }
 
     private void combatLoop()
@@ -61,22 +59,24 @@ public class Game
         " this foe to continue! Type \"ROLL\" to attack with your currently \nequipped weapon, or \"HEAL\" to cast" +
         " a healing spell on yourself. Either action consumes a turn!");
 
-        Boolean combatTester = true;
-        while (combatTester == true){       // Combat loop 
+        while (true) {       // Combat loop 
                     
             System.out.println("\nPlayer HP: " + player.getHealth() + "\tMana: " + player.getMana());
             System.out.print("Player Move: ");
             move = scan.next();
             move = move.toLowerCase();
             printLineBreak();
-            Boolean validInputCheck = true;
+            Boolean validInput = true;
 
             switch (move) {  
 
                 case "roll": {
                     playerAttackTurn(combatEnemy);
+                    // Enemy dead?
                     if (combatEnemy.getHealth() <= 0) {
-                        postCombatLootQuery(combatEnemy);
+                        combatEnemy.setRow(-1); combatEnemy.setCol(-1);  // removes enemy from play
+                        System.out.println("\nEnemy " + combatEnemy.getName() + " defeated!");
+                        postCombatLootQuery(combatEnemy.getWeapon());
                         dungeon.printFogMaze();
                         return;
                     }
@@ -84,20 +84,20 @@ public class Game
                     break;
                 }
 
-                case "heal":{
+                case "heal": {
                     player.Heal();
                     break;
                 }
 
-                default:{
+                default: {
                     System.out.println("\nInvalid input. Try again."); 
-                    validInputCheck = false;
+                    validInput = false;
                     break;
                 }
             }
 
             // Enemy attacks after player turn
-            if (validInputCheck) {
+            if (validInput) {
                 enemyTurn(combatEnemy);
                 gameOverTest();
             }
@@ -105,16 +105,13 @@ public class Game
     
     }
 
-    private void postCombatLootQuery(Enemy combatEnemy)
+    private void postCombatLootQuery(Weapon loot)
     {
-        combatEnemy.setRow(-1); combatEnemy.setCol(-1);  // removes enemy from play
-        System.out.println("\nEnemy " + combatEnemy.getName() + " defeated!");
-        Weapon loot = combatEnemy.getWeapon();
         System.out.println("\nYou loot a new weapon: " + loot.toString());
         System.out.println("Your current weapon: " + player.getWeapon().toString()); 
 
-        Boolean equipTester = true;
-        while (equipTester == true) {           // Prompt user to equip new weapon or not
+        while (true) {           // Prompt user to equip new weapon or not
+
             System.out.print("\nEquip " + loot.getName() + " instead? (Type YES or NO): ");
             String response = scan.next();
             response = response.toLowerCase();
@@ -125,16 +122,14 @@ public class Game
                     player.setWeapon(loot);
                     printLineBreak();
                     System.out.println("\n" + loot.getName() + " equipped!");
-                    equipTester = false;
-                    break;
+                    return;
                 }
                 case "no":{
-                    equipTester = false;
                     printLineBreak();
-                    break;
+                    return;
                 }
                 default: {
-                    if (equipTester) System.out.println("\nInvalid input. Try again");
+                    System.out.println("\nInvalid input. Try again");
                     break;
                 }
             }
@@ -171,7 +166,7 @@ public class Game
 
     private void printIntro() throws FileNotFoundException
     {
-        File artFile = new File("wizardArt.txt");
+        File artFile = new File("Art/wizardArt.txt");
         Scanner fileScan = new Scanner(artFile);
         while (fileScan.hasNextLine()) {
             System.out.println(fileScan.nextLine());
