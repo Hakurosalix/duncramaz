@@ -1,18 +1,19 @@
-package Enchantments;/*
-						* EnchantList.java
-						* An enchantlist class for use with the Launcher.DunCraMaz program
-						* 
-						* @author Jack Manges
-						*/
+package Enchantments;
+/*
+* EnchantList.java
+* An enchantlist class for use with the Launcher.DunCraMaz program
+*
+* @author Jack Manges
+*/
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class EnchantList {
 	// Singleton
-	private static EnchantList enchantList = new EnchantList();
-	private Random randGen = new Random();
-	private ArrayList<Enchantment> enchants = new ArrayList<Enchantment>();
+	private static final EnchantList enchantList = new EnchantList();
+	private final Random randGen = new Random();
+	private final ArrayList<Enchantment> enchants = new ArrayList<Enchantment>();
 
 	private EnchantList() {
 		// Set possible enchants

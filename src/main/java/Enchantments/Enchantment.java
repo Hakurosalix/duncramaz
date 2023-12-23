@@ -1,16 +1,17 @@
-package Enchantments;/*
-						* Enchantment.java
-						* An enchantment class for use with the Launcher.DunCraMaz program
-						* 
-						* @author Jack Manges
-						*/
+package Enchantments;
+/*
+* Enchantment.java
+* An enchantment class for use with the Launcher.DunCraMaz program
+*
+* @author Jack Manges
+*/
 
 import java.util.Random;
 
 public class Enchantment {
-	private Random randGen = new Random();
+	private final Random randGen = new Random();
+	private final int damage;
 	private String name = "";
-	private int damage;
 
 	public Enchantment(String name, int damage) {
 		this.name = name;

@@ -1,9 +1,10 @@
-package Enemies;/*
-				* HighElf.java
-				* A HighElf class for use with the Launcher.DunCraMaz program
-				* 
-				* @author Jack Manges
-				*/
+package Enemies;
+/*
+* HighElf.java
+* A HighElf class for use with the Launcher.DunCraMaz program
+*
+* @author Jack Manges
+*/
 
 import Weapons.Halberd;
 

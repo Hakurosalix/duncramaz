@@ -1,9 +1,10 @@
-package Player;/*
-				* Player.Player.java
-				* A player class for use with the Launcher.DunCraMaz program
-				* 
-				* @author Jack Manges
-				*/
+package Player;
+/*
+* Player.Player.java
+* A player class for use with the Launcher.DunCraMaz program
+*
+* @author Jack Manges
+*/
 
 import java.util.Random;
 

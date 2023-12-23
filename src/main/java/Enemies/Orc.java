@@ -1,9 +1,10 @@
-package Enemies;/*
-				* Orc.java
-				* An orc class for use with the Launcher.DunCraMaz program
-				* 
-				* @author Jack Manges
-				*/
+package Enemies;
+/*
+* Orc.java
+* An orc class for use with the Launcher.DunCraMaz program
+*
+* @author Jack Manges
+*/
 
 import Weapons.Sword;
 

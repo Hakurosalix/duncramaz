@@ -24,10 +24,10 @@ import Weapons.Weapon;
 
 public class GameEngine {
 	// Singleton
-	private static GameEngine gameEngine = new GameEngine();
-	private Player player;
-	private Scanner scan;
-	private Maze dungeon;
+	private static final GameEngine gameEngine = new GameEngine();
+	private final Player player;
+	private final Scanner scan;
+	private final Maze dungeon;
 
 	private GameEngine() {
 		player = Player.getInstance();
@@ -67,12 +67,12 @@ public class GameEngine {
 
 		while (true) { // Combat loop
 
-			System.out.println("\nPlayer.Player HP: " + player.getHealth() + "\tMana: " + player.getMana());
-			System.out.print("Player.Player Move: ");
+			System.out.println("\nPlayer HP: " + player.getHealth() + "\tMana: " + player.getMana());
+			System.out.print("Player Move: ");
 			move = scan.next();
 			move = move.toLowerCase();
 			printLineBreak();
-			Boolean validInput = true;
+			boolean validInput = true;
 
 			switch (move) {
 
@@ -159,7 +159,7 @@ public class GameEngine {
 	}
 
 	private void PlayerMove() {
-		System.out.print("Player.Player Move: ");
+		System.out.print("Player Move: ");
 		String move = scan.next();
 		dungeon.executePlayerMove(move);
 		dungeon.printFogMaze();
@@ -176,7 +176,7 @@ public class GameEngine {
 
 		printLineBreak();
 		System.out.println("\nYou've woken up in a dungeon full of monsters and you must escape! \n\nINSTRUCTIONS:\n\n"
-				+ "Player.Player starts at the top-left corner of the grid. 7 represents the player. \n1s represent walls,"
+				+ "Player starts at the top-left corner of the grid. 7 represents the player. \n1s represent walls,"
 				+ " while 0s represent open paths. Asterisks (*) represent unexplored spaces. \nType the W, A, S,"
 				+ " and D keys to move up, left, down, and right, respectively, and then press enter."
 				+ "\nBe wary of monsters! Enemies are randomly placed, with combat transpiring in a turn-based fashion."

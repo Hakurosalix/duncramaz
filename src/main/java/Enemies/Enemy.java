@@ -1,9 +1,10 @@
-package Enemies;/*
-				* Enemy.java
-				* An enemy class for use with the Launcher.DunCraMaz program
-				* 
-				* @author Jack Manges
-				*/
+package Enemies;
+/*
+* Enemy.java
+* An enemy class for use with the Launcher.DunCraMaz program
+*
+* @author Jack Manges
+*/
 
 import java.util.Random;
 

@@ -1,9 +1,10 @@
-package Maze;/*
-				* Maze.Maze.java
-				* A maze class for use with the Launcher.DunCraMaz program
-				* 
-				* @author Jack Manges
-				*/
+package Maze;
+/*
+* Maze.Maze.java
+* A maze class for use with the Launcher.DunCraMaz program
+*
+* @author Jack Manges
+*/
 
 import java.util.Random;
 
@@ -11,15 +12,16 @@ import Enemies.*;
 import Player.Player;
 
 public class Maze {
-	private static Maze dungeon = new Maze();
-	private Player player;
+	private static final Maze dungeon = new Maze();
+	private final Player player;
 
-	private int[][] keyMaze = { { 7, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0 }, { 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0 },
-			{ 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1 }, { 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0 },
-			{ 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0 }, { 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
-			{ 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+	private final int[][] keyMaze = { { 7, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0 },
+			{ 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0 }, { 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1 },
+			{ 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0 }, { 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0 },
+			{ 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 }, { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 
-	private String[][] fogMaze = { { "7", "0", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", },
+	private final String[][] fogMaze = { { "7", "0", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", },
 			{ "0", "1", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", },
 			{ "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", },
 			{ "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", },
@@ -28,7 +30,7 @@ public class Maze {
 			{ "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", },
 			{ "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", }, };
 
-	private Enemy[] enemies = new Enemy[8];
+	private final Enemy[] enemies = new Enemy[8];
 	private Enemy combatEnemy;
 
 	private Maze() {
@@ -68,22 +70,22 @@ public class Maze {
 							enemies[i] = new Orc("Orc", row, col);
 							// keyMaze[row][col] = 3;
 							i++;
-							break first;
+							// break first;
 						} else if (i > 2 && i < 5 && row > 1) {
 							enemies[i] = new Troll("Troll", row, col);
 							// keyMaze[row][col] = 4;
 							i++;
-							break first;
+							// break first;
 						} else if (i > 4 && i < 7 && row > 3) {
 							enemies[i] = new HighElf("High Elf", row, col);
 							// keyMaze[row][col] = 5;
 							i++;
-							break first;
-						} else if (i > 6 && i < 8 && row > 6) {
+							// break first;
+						} else if (i == 7 && row > 6) {
 							enemies[i] = new Balrog("Balrog", row, col);
 							// keyMaze[row][col] = 6;
 							i++;
-							break first;
+							// break first;
 						}
 					}
 				}
@@ -91,68 +93,57 @@ public class Maze {
 		}
 	}
 
-	public void printMaze() {
-		System.out.println();
-		for (int row = 0; row < keyMaze.length; row++) {
-			for (int col = 0; col < keyMaze[row].length; col++) {
-				System.out.print(keyMaze[row][col] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println();
-	}
-
 	public void printFogMaze() {
 		// Update the fogged maze with the real maze values as the player traverses
 		try {
 			fogMaze[player.getRow() - 1][player.getCol() - 1] = Integer
 					.toString(keyMaze[player.getRow() - 1][player.getCol() - 1]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException ignored) {
 		}
 		try {
 			fogMaze[player.getRow() - 1][player.getCol()] = Integer
 					.toString(keyMaze[player.getRow() - 1][player.getCol()]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException ignored) {
 		}
 		try {
 			fogMaze[player.getRow() - 1][player.getCol() + 1] = Integer
 					.toString(keyMaze[player.getRow() - 1][player.getCol() + 1]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException ignored) {
 		}
 		try {
 			fogMaze[player.getRow()][player.getCol() - 1] = Integer
 					.toString(keyMaze[player.getRow()][player.getCol() - 1]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException ignored) {
 		}
 		try {
 			fogMaze[player.getRow()][player.getCol()] = Integer.toString(keyMaze[player.getRow()][player.getCol()]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException ignored) {
 		}
 		try {
 			fogMaze[player.getRow()][player.getCol() + 1] = Integer
 					.toString(keyMaze[player.getRow()][player.getCol() + 1]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException ignored) {
 		}
 		try {
 			fogMaze[player.getRow() + 1][player.getCol() - 1] = Integer
 					.toString(keyMaze[player.getRow() + 1][player.getCol() - 1]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException ignored) {
 		}
 		try {
 			fogMaze[player.getRow() + 1][player.getCol()] = Integer
 					.toString(keyMaze[player.getRow() + 1][player.getCol()]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException ignored) {
 		}
 		try {
 			fogMaze[player.getRow() + 1][player.getCol() + 1] = Integer
 					.toString(keyMaze[player.getRow() + 1][player.getCol() + 1]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException ignored) {
 		}
 
 		System.out.println();
-		for (int row = 0; row < fogMaze.length; row++) {
-			for (int col = 0; col < fogMaze[row].length; col++) {
-				System.out.print(fogMaze[row][col] + " ");
+		for (String[] strings : fogMaze) {
+			for (String string : strings) {
+				System.out.print(string + " ");
 			}
 			System.out.println();
 		}
@@ -229,9 +220,9 @@ public class Maze {
 	}
 
 	public Boolean combatCheck() {
-		for (int i = 0; i < enemies.length; i++) {
-			if (enemies[i].getRow() == player.getRow() && enemies[i].getCol() == player.getCol()) {
-				combatEnemy = enemies[i];
+		for (Enemy enemy : enemies) {
+			if (enemy.getRow() == player.getRow() && enemy.getCol() == player.getCol()) {
+				combatEnemy = enemy;
 				return true;
 			}
 		}
@@ -247,10 +238,6 @@ public class Maze {
 		} else {
 			return false;
 		}
-	}
-
-	public Enemy getEnemy(int index) {
-		return enemies[index];
 	}
 
 	public Enemy getCombatEnemy() {

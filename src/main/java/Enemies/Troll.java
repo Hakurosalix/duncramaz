@@ -1,9 +1,10 @@
-package Enemies;/*
-				* Troll.java
-				* A troll class for use with the Launcher.DunCraMaz program
-				* 
-				* @author Jack Manges
-				*/
+package Enemies;
+/*
+* Troll.java
+* A troll class for use with the Launcher.DunCraMaz program
+*
+* @author Jack Manges
+*/
 
 import Weapons.Hammer;
 

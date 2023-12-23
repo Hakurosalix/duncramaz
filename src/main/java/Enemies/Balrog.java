@@ -1,9 +1,10 @@
-package Enemies;/*
-				* Balrog.java
-				* A Balrog class for use with the Launcher.DunCraMaz program
-				* 
-				* @author Jack Manges
-				*/
+package Enemies;
+/*
+* Balrog.java
+* A Balrog class for use with the Launcher.DunCraMaz program
+*
+* @author Jack Manges
+*/
 
 import Weapons.Staff;
 

@@ -1,8 +1,9 @@
-package Launcher;/*
-					* Launcher.DunCraMaz.java
-					*  A program for a terminal-based Maze.Maze Navigator/Dungeon Crawler game.
-					* @author Jack Manges
-					*/
+package Launcher;
+/*
+* Launcher.DunCraMaz.java
+*  A program for a terminal-based Maze.Maze Navigator/Dungeon Crawler game.
+* @author Jack Manges
+*/
 
 import java.io.FileNotFoundException;
 

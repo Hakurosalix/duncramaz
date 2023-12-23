@@ -1,9 +1,10 @@
-package Weapons;/*
-				* Weapon.java
-				* A weapon class for use with the Launcher.DunCraMaz program
-				* 
-				* @author Jack Manges
-				*/
+package Weapons;
+/*
+* Weapon.java
+* A weapon class for use with the Launcher.DunCraMaz program
+*
+* @author Jack Manges
+*/
 
 import java.util.Random;
 
@@ -21,7 +22,7 @@ public abstract class Weapon {
 		this.name = name;
 		enchantList = EnchantList.getInstance();
 
-		if (enchant == true) {
+		if (enchant) {
 			enchanted = true;
 			enchantment = enchantList.getRandomEnchantment();
 			this.name = enchantment.getName() + " " + this.name;
@@ -33,7 +34,7 @@ public abstract class Weapon {
 	public int damageRoll() {
 		Random randGen = new Random();
 		int n = randGen.nextInt(damage) + 1;
-		if (enchanted == true) {
+		if (enchanted) {
 			n += enchantment.damageRoll();
 		}
 		return n;
@@ -59,7 +60,7 @@ public abstract class Weapon {
 
 	@Override
 	public String toString() {
-		if (this.enchanted == true) {
+		if (this.enchanted) {
 			return this.name + "\tDamage: " + (this.damage + this.enchantment.getDamage());
 		} else {
 			return this.name + "\tDamage: " + this.damage;
