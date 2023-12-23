@@ -1,6 +1,6 @@
-# DunCraMaz
+# Launcher.DunCraMaz
 
-DunCraMaz is a console-based fantasy dungeon crawler game that takes place in a maze.
+Launcher.DunCraMaz is a console-based fantasy dungeon crawler gameEngine that takes place in a maze.
 
 It is a simple Java project I created whilst learning the basics of the language. It is being
 uploaded here primarily to serve as practice as I learn how to use Git.

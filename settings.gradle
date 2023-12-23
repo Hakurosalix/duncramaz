@@ -1,0 +1,4 @@
+rootProject.name = 'test'
+include 'src:test:GameEngine'
+findProject(':src:test:GameEngine')?.name = 'GameEngine'
+
