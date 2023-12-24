@@ -20,23 +20,22 @@ import java.util.Scanner;
 import Enemies.Enemy;
 import Maze.Maze;
 import Player.Player;
+import TunableParameters.TunableParameters;
 import Weapons.Weapon;
 
 public class GameEngine {
-	// Singleton
-	private static final GameEngine gameEngine = new GameEngine();
+	private static final String ROLL = "roll";
+	private static final String HEAL = "heal";
+	private static final String YES = "yes";
+	private static final String NO = "no";
 	private final Player player;
 	private final Scanner scan;
 	private final Maze dungeon;
 
-	private GameEngine() {
-		player = Player.getInstance();
-		dungeon = Maze.getInstance();
-		scan = new Scanner(System.in);
-	}
-
-	public static GameEngine getInstance() {
-		return gameEngine;
+	public GameEngine(Maze maze, Player player) {
+		this.dungeon = maze;
+		this.player = player;
+		this.scan = new Scanner(System.in);
 	}
 
 	public void run() throws FileNotFoundException {
@@ -47,10 +46,8 @@ public class GameEngine {
 
 	private void primaryGameLoop() {
 		dungeon.printFogMaze();
-		// Game transpires within this do loop
 		do {
 			PlayerMove();
-			// random enemy encounter check
 			if (dungeon.combatCheck()) {
 				combatLoop();
 			}
@@ -61,28 +58,26 @@ public class GameEngine {
 		Enemy combatEnemy = dungeon.getCombatEnemy();
 		String move;
 
-		System.out.println("Enemy " + combatEnemy.getName() + " encountered! You must defeat"
-				+ " this foe to continue! Type \"ROLL\" to attack with your currently \nequipped weapon, or \"HEAL\" to cast"
-				+ " a healing spell on yourself. Either action consumes a turn!");
+		System.out.println(TunableParameters.ENEMY + combatEnemy.getName() + TunableParameters.COMBAT_QUERY);
 
 		while (true) { // Combat loop
 
-			System.out.println("\nPlayer HP: " + player.getHealth() + "\tMana: " + player.getMana());
-			System.out.print("Player Move: ");
+			printPlayerStatus();
+			System.out.print(TunableParameters.PLAYER_MOVE_MESSAGE);
 			move = scan.next();
 			move = move.toLowerCase();
 			printLineBreak();
 			boolean validInput = true;
 
 			switch (move) {
-
-			case "roll": {
+			case ROLL: {
 				playerAttackTurn(combatEnemy);
 				// Enemy dead?
 				if (combatEnemy.getHealth() <= 0) {
 					combatEnemy.setRow(-1);
 					combatEnemy.setCol(-1); // removes enemy from play
-					System.out.println("\nEnemy " + combatEnemy.getName() + " defeated!");
+					System.out.println(
+							'\n' + TunableParameters.ENEMY + combatEnemy.getName() + TunableParameters.DEFEATED);
 					postCombatLootQuery(combatEnemy.getWeapon());
 					dungeon.printFogMaze();
 					return;
@@ -91,13 +86,13 @@ public class GameEngine {
 				break;
 			}
 
-			case "heal": {
+			case HEAL: {
 				player.Heal();
 				break;
 			}
 
 			default: {
-				System.out.println("\nInvalid input. Try again.");
+				System.out.println(TunableParameters.INVALID_INPUT_MESSAGE);
 				validInput = false;
 				break;
 			}
@@ -113,8 +108,8 @@ public class GameEngine {
 	}
 
 	private void postCombatLootQuery(Weapon loot) {
-		System.out.println("\nYou loot a new weapon: " + loot.toString());
-		System.out.println("Your current weapon: " + player.getWeapon().toString());
+		System.out.println(TunableParameters.NEW_WEAPON_MESSAGE + loot.toString());
+		System.out.println(TunableParameters.CURRENT_WEAPON_MESSAGE + player.getWeapon().toString());
 
 		while (true) { // Prompt user to equip new weapon or not
 
@@ -124,18 +119,18 @@ public class GameEngine {
 
 			switch (response) {
 
-			case "yes": {
+			case YES: {
 				player.setWeapon(loot);
 				printLineBreak();
 				System.out.println("\n" + loot.getName() + " equipped!");
 				return;
 			}
-			case "no": {
+			case NO: {
 				printLineBreak();
 				return;
 			}
 			default: {
-				System.out.println("\nInvalid input. Try again");
+				System.out.println(TunableParameters.INVALID_INPUT_MESSAGE);
 				break;
 			}
 			}
@@ -145,7 +140,7 @@ public class GameEngine {
 
 	private void enemyTurn(Enemy combatEnemy) {
 		int enemyAttackRoll = combatEnemy.damageRoll();
-		System.out.println("\nEnemy " + combatEnemy.getName() + combatEnemy.getAttackName());
+		System.out.println('\n' + TunableParameters.ENEMY + combatEnemy.getName() + combatEnemy.getAttackName());
 		System.out.println("You take " + enemyAttackRoll + " damage.");
 		player.changeHealth(-1 * enemyAttackRoll);
 
@@ -159,15 +154,22 @@ public class GameEngine {
 	}
 
 	private void PlayerMove() {
-		System.out.print("Player Move: ");
+		System.out.print(TunableParameters.PLAYER_MOVE_MESSAGE);
 		String move = scan.next();
 		dungeon.executePlayerMove(move);
 		dungeon.printFogMaze();
 
 	}
 
+	private void gameOverTest() {
+		if (player.getHealth() <= 0) {
+			System.out.println(TunableParameters.GAME_OVER_MESSAGE);
+			System.exit(0);
+		}
+	}
+
 	private void printIntro() throws FileNotFoundException {
-		File artFile = new File("src/main/resources/Art/wizardArt.txt");
+		File artFile = new File(TunableParameters.INTRO_ART_FILE_PATH);
 		Scanner fileScan = new Scanner(artFile);
 		while (fileScan.hasNextLine()) {
 			System.out.println(fileScan.nextLine());
@@ -175,27 +177,16 @@ public class GameEngine {
 		fileScan.close();
 
 		printLineBreak();
-		System.out.println("\nYou've woken up in a dungeon full of monsters and you must escape! \n\nINSTRUCTIONS:\n\n"
-				+ "Player starts at the top-left corner of the grid. 7 represents the player. \n1s represent walls,"
-				+ " while 0s represent open paths. Asterisks (*) represent unexplored spaces. \nType the W, A, S,"
-				+ " and D keys to move up, left, down, and right, respectively, and then press enter."
-				+ "\nBe wary of monsters! Enemies are randomly placed, with combat transpiring in a turn-based fashion."
-				+ "\nThe player starts with a simple dagger and a healing spell to use both in and out of combat."
-				+ "\nBetter weapons may be looted off of enemies!"
-				+ "\n\nReach the bottom-right corner of the dungeon to escape!");
+		System.out.println(TunableParameters.INTRO_MESSAGE);
 
 	}
 
 	private void printLineBreak() {
-		System.out.println("\n--------------------------" + "-----------------------------------------------"
-				+ "-------------------|");
+		System.out.println(TunableParameters.LINE_BREAK);
 	}
 
-	private void gameOverTest() {
-		if (player.getHealth() <= 0) {
-			System.out.println("\nYou died. GAME OVER\n");
-			System.exit(0);
-		}
+	private void printPlayerStatus() {
+		System.out.println("\nPlayer HP: " + player.getHealth() + "\tMana: " + player.getMana());
 	}
 
 }

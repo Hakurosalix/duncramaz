@@ -13,23 +13,18 @@ import Weapons.Weapon;
 
 public class Player {
 	// Singleton
-	private static Player player = new Player();
 	private int health;
 	private int mana;
 	private int playerRow;
 	private int playerCol;
 	private Weapon playerWeapon;
 
-	private Player() {
+	public Player() {
 		playerWeapon = new Dagger("Knifey", false);
 		playerRow = 0;
 		playerCol = 0;
 		health = 100;
 		mana = 100;
-	}
-
-	public static Player getInstance() {
-		return player;
 	}
 
 	public void Heal() {

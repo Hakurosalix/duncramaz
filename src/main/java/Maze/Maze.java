@@ -12,7 +12,6 @@ import Enemies.*;
 import Player.Player;
 
 public class Maze {
-	private static final Maze dungeon = new Maze();
 	private final Player player;
 
 	private final int[][] keyMaze = { { 7, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0 },
@@ -33,13 +32,9 @@ public class Maze {
 	private final Enemy[] enemies = new Enemy[8];
 	private Enemy combatEnemy;
 
-	private Maze() {
-		this.player = Player.getInstance();
+	public Maze(Player player) {
+		this.player = player;
 		GenerateEnemies();
-	}
-
-	public static Maze getInstance() {
-		return dungeon;
 	}
 
 	// Method for randomly populating maze with enemies

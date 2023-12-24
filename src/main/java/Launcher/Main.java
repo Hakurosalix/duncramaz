@@ -9,9 +9,9 @@ import java.io.FileNotFoundException;
 
 import GameEngine.GameEngine;
 
-public class DunCraMaz {
+public class Main {
 	public static void main(String[] args) throws FileNotFoundException {
-		GameEngine gameEngine = GameEngine.getInstance();
+		GameEngine gameEngine = ObjectFactory.getDefaultGameEngine();
 		gameEngine.run();
 	}
 }

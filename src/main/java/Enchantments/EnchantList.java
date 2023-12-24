@@ -13,14 +13,18 @@ public class EnchantList {
 	// Singleton
 	private static final EnchantList enchantList = new EnchantList();
 	private final Random randGen = new Random();
-	private final ArrayList<Enchantment> enchants = new ArrayList<Enchantment>();
+	private final ArrayList<Enchantment> enchants = new ArrayList<>();
+	private final Enchantment FLAMING_ENCHANTMENT = new Enchantment("Flaming", 2);
+	private final Enchantment ELECTRIC_ENCHANTMENT = new Enchantment("Electric", 4);
+	private final Enchantment FREEZING_ENCHANTMENT = new Enchantment("Freezing", 2);
+	private final Enchantment TIME_SHIFTING_ENCHANTMENT = new Enchantment("Time-shifting", 6);
 
 	private EnchantList() {
 		// Set possible enchants
-		enchants.add(new Enchantment("Flaming", 2));
-		enchants.add(new Enchantment("Electric", 4));
-		enchants.add(new Enchantment("Freezing", 2));
-		enchants.add(new Enchantment("Time-shifting", 6));
+		enchants.add(FLAMING_ENCHANTMENT);
+		enchants.add(ELECTRIC_ENCHANTMENT);
+		enchants.add(FREEZING_ENCHANTMENT);
+		enchants.add(TIME_SHIFTING_ENCHANTMENT);
 	}
 
 	public static EnchantList getInstance() {

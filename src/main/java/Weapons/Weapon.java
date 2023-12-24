@@ -13,7 +13,7 @@ import Enchantments.Enchantment;
 
 public abstract class Weapon {
 	static protected EnchantList enchantList;
-	protected String name = "";
+	protected String name;
 	protected int damage;
 	protected Enchantment enchantment;
 	protected Boolean enchanted;
