@@ -12,7 +12,10 @@ import Weapons.Dagger;
 import Weapons.Weapon;
 
 public class Player {
-	// Singleton
+	private static final int MAX_MANA = 100;
+	private static final int MAX_HEALTH = 100;
+	private static final int HEAL_MANA_COST = 8;
+	private static final int FIXED_HEAL_AMOUNT = 15;
 	private int health;
 	private int mana;
 	private int playerRow;
@@ -23,19 +26,19 @@ public class Player {
 		playerWeapon = new Dagger("Knifey", false);
 		playerRow = 0;
 		playerCol = 0;
-		health = 100;
-		mana = 100;
+		health = MAX_HEALTH;
+		mana = MAX_MANA;
 	}
 
 	public void Heal() {
-		if (mana >= 8) {
+		if (mana >= HEAL_MANA_COST) {
 			Random randGen = new Random();
-			int healAmount = randGen.nextInt(15) + 15;
+			int healAmount = randGen.nextInt(15) + FIXED_HEAL_AMOUNT;
 			health += healAmount;
-			if (health > 100) {
-				health = 100;
+			if (health > MAX_HEALTH) {
+				health = MAX_HEALTH;
 			}
-			mana -= 8;
+			mana -= HEAL_MANA_COST;
 			System.out.println("\nYou cast a healing spell for 8 mana. Healed for " + healAmount);
 		} else {
 			System.out.println("Not enough mana!");

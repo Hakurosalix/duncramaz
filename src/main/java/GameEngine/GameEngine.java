@@ -8,8 +8,7 @@ package GameEngine;
 
 //=====================================================================================================
 // TODO:
-//      Rework this entire file so that it isn't the most bulky/nested/unintelligible
-//          code in the world!!
+//      Wrap Java functionalities
 //
 //=====================================================================================================
 

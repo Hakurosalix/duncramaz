@@ -14,14 +14,6 @@ public abstract class ObjectFactory {
 	private ObjectFactory() {
 	}
 
-	public static Player getDefaultPlayer() {
-		return defaultPlayer;
-	}
-
-	public static Maze getDefaultMaze() {
-		return defaultMaze;
-	}
-
 	public static GameEngine getDefaultGameEngine() {
 		return defaultGameEngine;
 	}

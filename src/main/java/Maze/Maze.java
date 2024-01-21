@@ -29,6 +29,9 @@ public class Maze {
 			{ "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", },
 			{ "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", }, };
 
+	private final int[][] visibilityCoords = { { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, -1 }, { 0, 0 }, { 0, 1 },
+			{ 1, -1 }, { 1, 0 }, { 1, 1 } };
+
 	private final Enemy[] enemies = new Enemy[8];
 	private Enemy combatEnemy;
 
@@ -89,50 +92,22 @@ public class Maze {
 	}
 
 	public void printFogMaze() {
+		int playerRow = player.getRow();
+		int playerCol = player.getCol();
+		int coordsRowIndex = 0;
+		int coordsColIndex = 1;
+		int rowOffset, colOffset;
+
 		// Update the fogged maze with the real maze values as the player traverses
-		try {
-			fogMaze[player.getRow() - 1][player.getCol() - 1] = Integer
-					.toString(keyMaze[player.getRow() - 1][player.getCol() - 1]);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
-		}
-		try {
-			fogMaze[player.getRow() - 1][player.getCol()] = Integer
-					.toString(keyMaze[player.getRow() - 1][player.getCol()]);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
-		}
-		try {
-			fogMaze[player.getRow() - 1][player.getCol() + 1] = Integer
-					.toString(keyMaze[player.getRow() - 1][player.getCol() + 1]);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
-		}
-		try {
-			fogMaze[player.getRow()][player.getCol() - 1] = Integer
-					.toString(keyMaze[player.getRow()][player.getCol() - 1]);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
-		}
-		try {
-			fogMaze[player.getRow()][player.getCol()] = Integer.toString(keyMaze[player.getRow()][player.getCol()]);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
-		}
-		try {
-			fogMaze[player.getRow()][player.getCol() + 1] = Integer
-					.toString(keyMaze[player.getRow()][player.getCol() + 1]);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
-		}
-		try {
-			fogMaze[player.getRow() + 1][player.getCol() - 1] = Integer
-					.toString(keyMaze[player.getRow() + 1][player.getCol() - 1]);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
-		}
-		try {
-			fogMaze[player.getRow() + 1][player.getCol()] = Integer
-					.toString(keyMaze[player.getRow() + 1][player.getCol()]);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
-		}
-		try {
-			fogMaze[player.getRow() + 1][player.getCol() + 1] = Integer
-					.toString(keyMaze[player.getRow() + 1][player.getCol() + 1]);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
+		for (int[] visibilityCoord : visibilityCoords) {
+			rowOffset = visibilityCoord[coordsRowIndex];
+			colOffset = visibilityCoord[coordsColIndex];
+
+			try {
+				fogMaze[playerRow + rowOffset][playerCol + colOffset] = Integer
+						.toString(keyMaze[playerRow + rowOffset][playerCol + colOffset]);
+			} catch (ArrayIndexOutOfBoundsException ignored) {
+			}
 		}
 
 		System.out.println();
